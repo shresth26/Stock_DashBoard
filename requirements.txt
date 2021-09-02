@@ -1,6 +1,8 @@
-pandas_datareader
-pandas
+beautifulsoup4
+matplotlib
+nltk
 numpy
+pandas
+pandas_datareader
 plotly
 streamlit
-matplotlib
