@@ -3,6 +3,9 @@ import os
 import nltk
 import pandas as pd
 import matplotlib.pyplot as plt
+from wordcloud import WordCloud
+from wordcloud import ImageColorGenerator
+from wordcloud import STOPWORDS
 from urllib.request import urlopen, Request
 from bs4 import BeautifulSoup
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
@@ -31,6 +34,10 @@ class NewsSentimentData:
         print("draw plots")
 
         NewsSentimentData.draw_plot(sentiment_data)
+
+        print("Draw Wordcloud")
+
+        NewsSentimentData.draw_wordcloud(sentiment_data)
 
     @staticmethod
     def get_news_tables(TICKERS: list) -> dict:
@@ -95,3 +102,13 @@ class NewsSentimentData:
         mean_scores.plot(kind='bar')
         plt.show()
 
+    @staticmethod
+    def draw_wordcloud(sentiment_data: pd.DataFrame):
+
+        text = " ".join(i for i in sentiment_data.Headline)
+        stopwords = set(STOPWORDS)
+        wordcloud = WordCloud(stopwords=stopwords, background_color="white").generate(text)
+        plt.figure(figsize=(15, 10))
+        plt.imshow(wordcloud, interpolation='bilinear')
+        plt.axis("off")
+        plt.show()
