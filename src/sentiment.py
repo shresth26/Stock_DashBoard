@@ -1,17 +1,15 @@
-from urllib.request import urlopen, Request
-from bs4 import BeautifulSoup
+
 import os
+import nltk
 import pandas as pd
 import matplotlib.pyplot as plt
-# %matplotlib inline
+from urllib.request import urlopen, Request
+from bs4 import BeautifulSoup
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-import nltk
+
+from src.constants import FINWIZ_URL, TICKERS
 
 nltk.download('vader_lexicon')
-
-tickers = ['AMZN', 'TSLA', 'GOOG']
-
-finwiz_url = 'https://finviz.com/quote.ashx?t='
 
 
 class NewsSentimentData:
@@ -20,7 +18,7 @@ class NewsSentimentData:
     def collect_news_data():
 
         print("Get news tables")
-        news_tables = NewsSentimentData.get_news_tables(tickers)
+        news_tables = NewsSentimentData.get_news_tables(TICKERS)
 
         print("Parse news data")
 
@@ -35,11 +33,11 @@ class NewsSentimentData:
         NewsSentimentData.draw_plot(sentiment_data)
 
     @staticmethod
-    def get_news_tables(tickers: list) -> dict:
+    def get_news_tables(TICKERS: list) -> dict:
 
         news_tables = {}
-        for ticker in tickers:
-            url = finwiz_url + ticker
+        for ticker in TICKERS:
+            url = FINWIZ_URL + ticker
             req = Request(url=url, headers={'user-agent': 'my-app/0.0.1'})
             response = urlopen(req)
             html = BeautifulSoup(response, features="lxml")
