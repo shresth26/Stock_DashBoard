@@ -1,10 +1,7 @@
-
-import os
 import nltk
 import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
-from wordcloud import ImageColorGenerator
 from wordcloud import STOPWORDS
 from urllib.request import urlopen, Request
 from bs4 import BeautifulSoup

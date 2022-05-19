@@ -7,3 +7,5 @@ pandas_datareader
 plotly
 streamlit
 wordcloud
+tweepy
+textblob
